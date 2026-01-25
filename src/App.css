@@ -1,0 +1,38 @@
+.App {
+  min-height: 100vh;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  font-size: 1.2rem;
+  color: var(--gray);
+}
+
+.error-message {
+  text-align: center;
+  padding: 3rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.error-message h2 {
+  color: var(--error);
+  margin-bottom: 1rem;
+}
+
+.error-message button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 2rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.error-message button:hover {
+  background-color: var(--dark-color);
+}

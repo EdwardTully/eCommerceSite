@@ -1,0 +1,43 @@
+.notification {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  background-color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1001;
+  min-width: 300px;
+  animation: slideInRight 0.3s ease;
+}
+
+.notification-success {
+  border-left: 4px solid var(--success);
+}
+
+.notification-error {
+  border-left: 4px solid var(--error);
+}
+
+.notification-close {
+  background: none;
+  color: var(--gray);
+  font-size: 1.2rem;
+  padding: 0;
+  transition: color 0.3s;
+}
+
+.notification-close:hover {
+  color: var(--dark-color);
+}
+
+@media (max-width: 768px) {
+  .notification {
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+  }
+}

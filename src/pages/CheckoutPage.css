@@ -1,0 +1,27 @@
+.checkout-page {
+  min-height: 100vh;
+  background-color: var(--light-bg);
+  padding: 2rem;
+}
+
+.checkout-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.checkout-container h1 {
+  font-size: 2.5rem;
+  color: var(--dark-color);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .checkout-page {
+    padding: 1rem;
+  }
+
+  .checkout-container h1 {
+    font-size: 2rem;
+  }
+}
