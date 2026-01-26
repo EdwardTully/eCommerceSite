@@ -46,7 +46,6 @@ const CheckoutForm = () => {
     setLoading(true);
 
     try {
-      const cardElement = elements.getElement(CardElement);
 
       // Simulate payment processing
       await new Promise(resolve => setTimeout(resolve, 2000));
