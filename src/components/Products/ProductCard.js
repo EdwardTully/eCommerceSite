@@ -21,11 +21,17 @@ const ProductCard = ({ product }) => {
     }));
   };
 
+  // Support Netlify Blobs: if product.blob_key exists, use it to construct the image URL
+  const blobBaseUrl = "https://bradybunchshop.netlify.app/.netlify/images/";
+  const imageUrl = product.blob_key
+    ? `${blobBaseUrl}${product.blob_key}`
+    : product.image;
+
   return (
     <div className="product-card" onClick={handleCardClick}>
       <div className="product-image-container">
         <img 
-          src={product.image} 
+          src={imageUrl} 
           alt={product.title}
           className="product-image"
           onError={(e) => {
@@ -36,12 +42,10 @@ const ProductCard = ({ product }) => {
           <div className="sold-badge">SOLD</div>
         )}
       </div>
-      
       <div className="product-info">
         <h3 className="product-title">{product.title}</h3>
         <p className="product-category">{product.category}</p>
         <p className="product-description">{product.description}</p>
-        
         <div className="product-footer">
           <span className="product-price">${Number(product.price).toFixed(2)}</span>
           <button 
