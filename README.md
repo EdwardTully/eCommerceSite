@@ -294,6 +294,7 @@ axios.post('http://localhost:3001/products', {
 - You can use tools like [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/) to test API requests before building a UI.
 - For production, consider a real backend and image hosting (e.g., AWS S3, Cloudinary).
 
+If you want a starter template or more details for the admin client, just let me know!
 ---
 
 ## Support
