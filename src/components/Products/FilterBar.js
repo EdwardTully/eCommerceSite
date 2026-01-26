@@ -1,18 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedCategory, setSearchQuery, clearFilters } from '../../store/slices/productsSlice';
+import { setSelectedCategory, clearFilters } from '../../store/slices/productsSlice';
 import './FilterBar.css';
 
 const FilterBar = () => {
   const dispatch = useDispatch();
-  const { categories, selectedCategory, searchQuery, filteredItems, items } = useSelector((state) => state.products);
+  const { categories, selectedCategory, filteredItems, items } = useSelector((state) => state.products);
 
   const handleCategoryChange = (e) => {
     dispatch(setSelectedCategory(e.target.value));
-  };
-
-  const handleSearchChange = (e) => {
-    dispatch(setSearchQuery(e.target.value));
   };
 
   const handleClearFilters = () => {
@@ -39,7 +35,7 @@ const FilterBar = () => {
           </select>
         </div>
 
-        {(selectedCategory !== 'all' || searchQuery) && (
+        {selectedCategory !== 'all' && (
           <button onClick={handleClearFilters} className="clear-filters-btn">
             Clear Filters
           </button>
