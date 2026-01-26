@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
         <img 
           src={imageUrl} 
           alt={product.title}
-          className="product-images"
+          className="product-image"
           onError={(e) => {
             e.target.src = 'https://s.yimg.com/fz/api/res/1.2/9fKgZxD.U97Ethk.Ss8Tvw--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpbGw7aD00MTI7cHhvZmY9NTA7cHlvZmY9MTAwO3E9ODA7c3M9MTt3PTM4OA--/https://i.pinimg.com/736x/6e/59/95/6e599501252c23bcf02658617b29c894.jpg';
           }}
