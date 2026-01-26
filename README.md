@@ -239,6 +239,63 @@ Potential features to add:
 
 This project is for educational/demonstration purposes.
 
+
+## Managing Product Data (Descriptions & Images)
+
+You have two main options for managing your product data (descriptions, images, etc.):
+
+### 1. Manual Editing ("Nuclear Option")
+
+- Open `db.json` in a text editor (such as VS Code).
+- Add, edit, or remove product objects directly in the `products` array.
+- Update fields like `title`, `description`, `category`, `price`, `sold`, and `image` as needed.
+- Save the file and restart the mock backend (`npm run server` or `npm run dev`) if running.
+
+**Example product entry:**
+```json
+{
+  "id": 21,
+  "title": "Antique Pocket Watch",
+  "category": "miscellaneous",
+  "price": 120.00,
+  "sold": false,
+  "description": "A beautiful 19th-century pocket watch in working condition.",
+  "image": "https://your-image-url.com/pocketwatch.jpg"
+}
+```
+
+### 2. Admin Client App (Recommended for Shopkeepers)
+
+You can build a simple form-based React app (or use any frontend framework) to manage your inventory via the mock API (`json-server`).
+
+**Basic steps:**
+1. Create a new React app (e.g., `npx create-react-app admin-client`).
+2. Use Axios or Fetch to connect to your running mock backend (default: `http://localhost:3001/products`).
+3. Build forms for:
+   - Adding new products (POST)
+   - Editing existing products (PUT/PATCH)
+   - Deleting products (DELETE)
+   - Uploading or linking images (just set the `image` URL field)
+4. Optionally, add authentication or restrict access for security.
+
+**Example POST request to add a product:**
+```js
+axios.post('http://localhost:3001/products', {
+  title: 'New Item',
+  category: 'furniture',
+  price: 99.99,
+  sold: false,
+  description: 'Description here',
+  image: 'https://your-image-url.com/item.jpg'
+});
+```
+
+**Tips:**
+- You can use tools like [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/) to test API requests before building a UI.
+- For production, consider a real backend and image hosting (e.g., AWS S3, Cloudinary).
+
+---
+
 ## Support
 
 For issues or questions, please check the console for error messages or review the Redux DevTools for state debugging.
