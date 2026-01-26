@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+// Use Netlify Functions endpoints for production
+const API_URL = '/api';
 
 // Async thunks
+
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
@@ -12,11 +14,13 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+
+// TODO: Implement a Netlify Function for featured products if needed
 export const fetchFeaturedProducts = createAsyncThunk(
   'products/fetchFeatured',
   async () => {
-    const response = await axios.get(`${API_URL}/featured`);
-    return response.data;
+    // For now, fallback to empty array or implement endpoint
+    return [];
   }
 );
 

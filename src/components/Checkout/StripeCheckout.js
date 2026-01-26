@@ -51,7 +51,9 @@ const CheckoutForm = () => {
       await new Promise(resolve => setTimeout(resolve, 2000));
 
       // Mark each purchased product as sold in the backend
-      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
+      // Use Netlify Function endpoint for marking products as sold (implement this function in backend)
+      const API_URL = '/api';
       await Promise.all(
         cartItems.map(item =>
           axios.put(`${API_URL}/products/${item.id}`, { ...item, sold: true })
