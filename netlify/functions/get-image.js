@@ -2,10 +2,7 @@ export default async (req, context) => {
   const { key } = context.params;
 
   if (!key) {
-    return new Response(JSON.stringify({ error: "Image key required" }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" }
-    });
+    return new Response("Image key required", { status: 400 });
   }
 
   try {
@@ -13,10 +10,7 @@ export default async (req, context) => {
     const blob = await context.blobs.images.get(key);
     
     if (!blob) {
-      return new Response(JSON.stringify({ error: "Image not found" }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" }
-      });
+      return new Response("Image not found", { status: 404 });
     }
 
     // Determine content type based on file extension
@@ -26,13 +20,15 @@ export default async (req, context) => {
     else if (key.endsWith(".webp")) contentType = "image/webp";
 
     return new Response(blob, {
-      headers: { "Content-Type": contentType }
+      status: 200,
+      headers: { 
+        "Content-Type": contentType,
+        "Cache-Control": "public, max-age=31536000"
+      }
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
+    console.error("Error fetching image:", error);
+    return new Response(`Error: ${error.message}`, { status: 500 });
   }
 };
 
