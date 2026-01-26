@@ -4,14 +4,15 @@ import './ProductForm.css';
 const CATEGORIES = [
   'Furniture',
   'Decorative Objects',
-  'Vintage Textiles',
   'Collectibles',
-  'Jewelry',
   'Art & Prints',
   'Glassware',
-  'Kitchen & Dining',
   'Books & Documents',
-  'Tools & Hardware'
+  'Tools & Hardware',
+  'Military Memorabilia',
+  'Scientific Instruments',
+  'Vintage Electronics',
+  'Advertising'
 ];
 
 const ProductForm = ({ onSubmit, initialProduct = null, isLoading = false }) => {

@@ -25,14 +25,15 @@ The following categories are available in the product form dropdown. These ensur
 
 - Furniture
 - Decorative Objects
-- Vintage Textiles
 - Collectibles
-- Jewelry
 - Art & Prints
 - Glassware
-- Kitchen & Dining
 - Books & Documents
 - Tools & Hardware
+- Military Memorabilia
+- Scientific Instruments
+- Vintage Electronics
+- Advertising
 
 To add or modify categories, edit `src/components/Admin/ProductForm.js` and update the `CATEGORIES` array.
 
