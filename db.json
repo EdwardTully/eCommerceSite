@@ -1,3 +1,4 @@
+{
   "products": [
     { "id": 1, "title": "Vintage Railroad Ticket Stub", "category": "transportation effemera", "price": 19.99, "sold": false, "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam euismod, urna eu tincidunt consectetur, nisi nisl aliquam enim.", "image": "https://via.placeholder.com/300x300?text=Railroad+Ticket" },
     { "id": 2, "title": "Antique Glass Medicine Bottle", "category": "bottles and glassware", "price": 34.50, "sold": false, "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.", "image": "https://via.placeholder.com/300x300?text=Medicine+Bottle" },
@@ -20,3 +21,4 @@
     { "id": 19, "title": "Antique Brass Compass", "category": "miscellaneous", "price": 44.00, "sold": false, "description": "Vestibulum volutpat pretium libero. Cras id dui. Aenean ut eros et nisl sagittis vestibulum.", "image": "https://via.placeholder.com/300x300?text=Brass+Compass" },
     { "id": 20, "title": "Vintage Bus Token", "category": "transportation effemera", "price": 8.00, "sold": false, "description": "Suspendisse potenti. Pellentesque habitant morbi tristique senectus et netus.", "image": "https://via.placeholder.com/300x300?text=Bus+Token" }
   ]
+}
