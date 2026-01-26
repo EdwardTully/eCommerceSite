@@ -1,3 +1,5 @@
+import { getStore } from "@netlify/blobs";
+
 export default async (req, context) => {
   const { key } = context.params;
 
@@ -6,8 +8,9 @@ export default async (req, context) => {
   }
 
   try {
-    // Read the blob from Netlify Blobs
-    const blob = await context.blobs.images.get(key);
+    // Get the images store from Netlify Blobs
+    const imageStore = getStore("images");
+    const blob = await imageStore.get(key);
     
     if (!blob) {
       return new Response("Image not found", { status: 404 });
