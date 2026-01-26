@@ -14,17 +14,12 @@
     "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1"
   },
-  "devDependencies": {
-    "concurrently": "^9.2.1",
-    "json-server": "^0.17.4"
-  },
+  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "json-server --watch db.json --port 3001",
-    "dev": "concurrently \"npm run server\" \"npm start\""
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
