@@ -12,6 +12,18 @@ import ProductDetailModal from './components/Products/ProductDetailModal';
 import Notification from './components/UI/Notification';
 import './App.css';
 
+const MainLayout = ({ children }) => (
+  <>
+    <Header />
+    <main className="main-content">
+      {children}
+    </main>
+    <ShoppingCart />
+    <ProductDetailModal />
+    <Notification />
+  </>
+);
+
 function App() {
   return (
     <Provider store={store}>
@@ -19,24 +31,9 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/admin" element={<AdminDashboard />} />
-            <Route
-              path="*"
-              element={
-                <>
-                  <Header />
-                  <main className="main-content">
-                    <Routes>
-                      <Route path="/" element={<HomePage />} />
-                      <Route path="/shop" element={<ShopPage />} />
-                      <Route path="/checkout" element={<CheckoutPage />} />
-                    </Routes>
-                  </main>
-                  <ShoppingCart />
-                  <ProductDetailModal />
-                  <Notification />
-                </>
-              }
-            />
+            <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
+            <Route path="/shop" element={<MainLayout><ShopPage /></MainLayout>} />
+            <Route path="/checkout" element={<MainLayout><CheckoutPage /></MainLayout>} />
           </Routes>
         </div>
       </Router>
