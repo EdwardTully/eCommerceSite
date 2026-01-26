@@ -21,10 +21,9 @@ const ProductCard = ({ product }) => {
     }));
   };
 
-  // Support Netlify Blobs: if product.blob_key exists, use it to construct the image URL
-  const blobBaseUrl = "https://bradybunchshop.netlify.app/.netlify/images/";
+  // Support Netlify Blobs: if product.blob_key exists, use the API function to serve it
   const imageUrl = product.blob_key
-    ? `${blobBaseUrl}${product.blob_key}`
+    ? `/api/images/${product.blob_key}`
     : product.image;
 
   return (
