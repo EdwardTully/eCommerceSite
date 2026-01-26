@@ -1,17 +1,26 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../store/slices/productsSlice';
-import ProductGrid from '../components/Products/ProductGrid';
+import CategorySection from '../components/Products/CategorySection';
 import FilterBar from '../components/Products/FilterBar';
 import './ShopPage.css';
 
 const ShopPage = () => {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.products);
+  const { loading, error, filteredItems, categories } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
+  // Group products by category
+  const groupedByCategory = () => {
+    const grouped = {};
+    categories.forEach((cat) => {
+      grouped[cat] = filteredItems.filter((p) => p.category === cat);
+    });
+    return grouped;
+  };
 
   if (error) {
     return (
@@ -25,6 +34,8 @@ const ShopPage = () => {
     );
   }
 
+  const grouped = groupedByCategory();
+
   return (
     <div className="shop-page">
       <div className="shop-header">
@@ -36,8 +47,25 @@ const ShopPage = () => {
       
       {loading ? (
         <div className="loading-spinner">Loading products...</div>
+      ) : filteredItems.length === 0 ? (
+        <div className="shop-container">
+          <div className="no-products">
+            <h2>No products found</h2>
+            <p>Try adjusting your filters</p>
+          </div>
+        </div>
       ) : (
-        <ProductGrid />
+        <div className="shop-container">
+          {Object.entries(grouped).map(([category, products]) => (
+            products.length > 0 && (
+              <CategorySection 
+                key={category} 
+                category={category} 
+                products={products}
+              />
+            )
+          ))}
+        </div>
       )}
     </div>
   );
