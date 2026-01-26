@@ -43,10 +43,11 @@ export default async (req, context) => {
     }
 
     try {
-      const result = await sql(
-        "INSERT INTO products (title, description, price, category, image, sold) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-        [title, description, parseFloat(price), category, image, false]
-      );
+      const result = await sql`
+        INSERT INTO products (title, description, price, category, image, sold) 
+        VALUES (${title}, ${description}, ${parseFloat(price)}, ${category}, ${image}, false) 
+        RETURNING *
+      `;
 
       return new Response(JSON.stringify(result[0]), {
         status: 201,

@@ -19,7 +19,7 @@ export default async (req, context) => {
   }
 
   try {
-    const result = await sql("DELETE FROM products WHERE id = $1 RETURNING id", [id]);
+    const result = await sql`DELETE FROM products WHERE id = ${id} RETURNING id`;
     
     if (result.length === 0) {
       return new Response(JSON.stringify({ error: "Product not found" }), {
