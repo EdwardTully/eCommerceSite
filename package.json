@@ -4,6 +4,7 @@
   "private": true,
   "description": "eCommerce site for antique shop with React, Redux, and Stripe",
   "dependencies": {
+    "@netlify/neon": "^0.1.2",
     "@reduxjs/toolkit": "^2.0.1",
     "@stripe/react-stripe-js": "^2.4.0",
     "@stripe/stripe-js": "^2.2.2",
@@ -12,9 +13,8 @@
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.3",
-    "react-scripts": "5.0.1"
+    "react-scripts": "^0.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
