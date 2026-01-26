@@ -21,10 +21,8 @@ const ProductCard = ({ product }) => {
     }));
   };
 
-  // Support Netlify Blobs: if product.blob_key exists, use the API function to serve it
-  const imageUrl = product.blob_key
-    ? `/api/images/${product.blob_key}`
-    : product.image;
+  // Use image path from database (stored in /public/images/)
+  const imageUrl = product.image;
 
   return (
     <div className="product-card" onClick={handleCardClick}>
