@@ -22,17 +22,6 @@ const FilterBar = () => {
   return (
     <div className="filter-bar">
       <div className="filter-controls">
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={handleSearchChange}
-            className="search-input"
-          />
-          <span className="search-icon">🔍</span>
-        </div>
-
         <div className="category-filter">
           <label htmlFor="category-select">Category:</label>
           <select 
