@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { clearCart, selectCartTotal } from '../../store/slices/cartSlice';
+import axios from 'axios';
 import { showNotification } from '../../store/slices/uiSlice';
 import './StripeCheckout.css';
 
@@ -44,29 +45,28 @@ const CheckoutForm = () => {
 
     setLoading(true);
 
-    // In a real application, you would:
-    // 1. Send order details to your backend
-    // 2. Create a payment intent on your server
-    // 3. Confirm the payment with Stripe
-    
-    // For demo purposes, we'll simulate a successful payment
     try {
       const cardElement = elements.getElement(CardElement);
 
       // Simulate payment processing
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // For demo: Use Stripe's test card number 4242 4242 4242 4242
-      // In production, you'd call stripe.confirmCardPayment() with a payment intent from your server
-      
+      // Mark each purchased product as sold in the backend
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+      await Promise.all(
+        cartItems.map(item =>
+          axios.put(`${API_URL}/products/${item.id}`, { ...item, sold: true })
+        )
+      );
+
       dispatch(showNotification({
         message: 'Payment successful! Thank you for your purchase.',
         type: 'success'
       }));
-      
+
       dispatch(clearCart());
       navigate('/');
-      
+
     } catch (error) {
       dispatch(showNotification({
         message: 'Payment failed. Please try again.',

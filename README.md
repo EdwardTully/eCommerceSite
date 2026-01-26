@@ -246,3 +246,11 @@ For issues or questions, please check the console for error messages or review t
 ---
 
 **Happy Shopping!** 🛍️
+
+
+##Card Useage
+Yes, that's correct. In most modern eCommerce sites:
+
+The shopping cart UI and logic are built in your app, but payment processing (billing) is handled by a third-party provider like Stripe, PayPal, or Square for security and compliance.
+The cart's state is managed locally (e.g., with Redux), but the actual payment and sensitive data never touch your server—they go directly to the payment provider.
+This is the approach used in your project: Stripe is integrated for billing, while the cart is managed in your React/Redux frontend
