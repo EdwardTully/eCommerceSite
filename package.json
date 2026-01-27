@@ -1,8 +1,8 @@
 {
-  "name": "antique-shop-ecommerce",
+  "name": "reloop-ecommerce",
   "version": "1.0.0",
   "private": true,
-  "description": "eCommerce site for antique shop with React, Redux, and Stripe",
+  "description": "ReLoop - Modern sustainable eCommerce site with React, Redux, and Stripe",
   "dependencies": {
     "@netlify/neon": "^0.1.2",
     "@reduxjs/toolkit": "^2.0.1",

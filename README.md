@@ -1,6 +1,6 @@
-# Antique Treasures - eCommerce Site
+# ReLoop - eCommerce Site
 
-A full-featured eCommerce application built with React, Redux, and Stripe for an antique shop. Browse unique treasures, add items to your cart, and complete purchases with a seamless checkout experience.
+A modern eCommerce application built with React, Redux, and Stripe for sustainable shopping. Browse quality products, add items to your cart, and complete purchases with a seamless checkout experience.
 
 ## Features
 

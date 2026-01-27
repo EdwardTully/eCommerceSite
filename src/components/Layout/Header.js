@@ -13,7 +13,7 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <Link to="/" className="logo">
-          <h1>🏛️ Antique Treasures</h1>
+          <h1>♻️ ReLoop</h1>
         </Link>
         
         <nav className="nav">
