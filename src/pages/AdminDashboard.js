@@ -48,13 +48,9 @@ const AdminDashboard = () => {
       let imagePath = productData.image;
       
       if (imageFile) {
-        // Create a simple filename from title
-        const fileName = `${productData.title.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}.jpg`;
+        // Use the actual filename from the selected file
+        const fileName = imageFile.name;
         imagePath = `/images/${fileName}`;
-        
-        // In production, you would upload the image file here
-        // For now, we'll just use the filename
-        // TODO: Implement image upload to /public/images/
       }
 
       const payload = {
