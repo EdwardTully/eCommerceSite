@@ -64,6 +64,10 @@ const ProductDetailModal = () => {
     setZoomPosition({ x, y });
   };
 
+  const handleImageClick = () => {
+    setIsZoomed(!isZoomed);
+  };
+
   const handleDragStart = (e) => {
     e.preventDefault();
     return false;
@@ -79,6 +83,7 @@ const ProductDetailModal = () => {
             <div 
               className={`modal-image-container ${isZoomed ? 'zoomed' : ''}`}
               onMouseMove={handleMouseMove}
+              onClick={handleImageClick}
             >
               <img 
                 src={currentImage} 
@@ -95,15 +100,6 @@ const ProductDetailModal = () => {
                 }}
               />
             </div>
-
-            {/* Zoom Toggle Button */}
-            <button 
-              className="zoom-toggle-btn"
-              onClick={() => setIsZoomed(!isZoomed)}
-              title={isZoomed ? 'Normal View' : 'Zoom In'}
-            >
-              {isZoomed ? '🔍−' : '🔍+'}
-            </button>
 
             {/* Image Navigation */}
             {images.length > 1 && (
