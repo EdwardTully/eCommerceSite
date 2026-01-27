@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ProductForm from '../components/Admin/ProductForm';
 import './AdminDashboard.css';
@@ -8,6 +8,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const [editingId, setEditingId] = useState(null);
+  const productFormRef = useRef(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
 
@@ -67,6 +68,10 @@ const AdminDashboard = () => {
         // Create new product
         await axios.post('/api/products', payload);
         setMessage({ type: 'success', text: 'Product created successfully!' });
+        // Reset form after successful creation
+        if (productFormRef.current) {
+          productFormRef.current.resetForm();
+        }
       }
 
       fetchProducts();
@@ -142,6 +147,7 @@ const AdminDashboard = () => {
       <div className="admin-content">
         <section className="product-form-section">
           <ProductForm
+            ref={productFormRef}
             onSubmit={handleAddProduct}
             initialProduct={editingId ? products.find(p => p.id === editingId) : null}
             isLoading={loading}

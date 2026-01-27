@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import './ProductForm.css';
 
 const CATEGORIES = [
@@ -15,7 +15,7 @@ const CATEGORIES = [
   'Advertising'
 ];
 
-const ProductForm = ({ onSubmit, initialProduct = null, isLoading = false }) => {
+const ProductForm = forwardRef(({ onSubmit, initialProduct = null, isLoading = false }, ref) => {
   const [formData, setFormData] = useState(
     initialProduct || {
       title: '',
@@ -28,6 +28,21 @@ const ProductForm = ({ onSubmit, initialProduct = null, isLoading = false }) => 
   );
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(initialProduct?.image || '');
+
+  useImperativeHandle(ref, () => ({
+    resetForm: () => {
+      setFormData({
+        title: '',
+        description: '',
+        price: '',
+        category: 'Furniture',
+        image: '',
+        sold: false,
+      });
+      setImageFile(null);
+      setImagePreview('');
+    }
+  }));
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -159,6 +174,8 @@ const ProductForm = ({ onSubmit, initialProduct = null, isLoading = false }) => 
       </form>
     </div>
   );
-};
+});
+
+ProductForm.displayName = 'ProductForm';
 
 export default ProductForm;
