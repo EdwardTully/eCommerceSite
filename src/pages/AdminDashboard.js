@@ -44,19 +44,21 @@ const AdminDashboard = () => {
   const handleAddProduct = async (formData) => {
     try {
       setLoading(true);
-      const { imageFile, imagePreview, ...productData } = formData;
+      const { imageFiles, imagePreviews, ...productData } = formData;
 
       let imagePath = productData.image;
+      let imageUrls = [];
       
-      if (imageFile) {
-        // Use the actual filename from the selected file
-        const fileName = imageFile.name;
-        imagePath = `/images/${fileName}`;
+      if (imageFiles && imageFiles.length > 0) {
+        // Use the actual filenames from the selected files
+        imageUrls = imageFiles.map(file => `/images/${file.name}`);
+        imagePath = imageUrls[0]; // Use first image as primary
       }
 
       const payload = {
         ...productData,
         image: imagePath,
+        image_urls: imageUrls.length > 0 ? imageUrls : undefined,
       };
 
       if (editingId) {

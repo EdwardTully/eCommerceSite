@@ -28,8 +28,8 @@ const ProductForm = forwardRef(({ onSubmit, initialProduct = null, isLoading = f
       featured: false,
     }
   );
-  const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(initialProduct?.image || '');
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState(initialProduct?.image_urls || [initialProduct?.image].filter(Boolean) || []);
 
   useImperativeHandle(ref, () => ({
     resetForm: () => {
@@ -42,8 +42,8 @@ const ProductForm = forwardRef(({ onSubmit, initialProduct = null, isLoading = f
         sold: false,
         featured: false,
       });
-      setImageFile(null);
-      setImagePreview('');
+      setImageFiles([]);
+      setImagePreviews([]);
     }
   }));
 
@@ -56,16 +56,24 @@ const ProductForm = forwardRef(({ onSubmit, initialProduct = null, isLoading = f
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      // Create preview
+    const files = Array.from(e.target.files);
+    setImageFiles(files);
+    
+    // Create previews for all files
+    const previews = [];
+    let loadedCount = 0;
+
+    files.forEach((file) => {
       const reader = new FileReader();
       reader.onload = (event) => {
-        setImagePreview(event.target.result);
+        previews.push(event.target.result);
+        loadedCount++;
+        if (loadedCount === files.length) {
+          setImagePreviews(previews);
+        }
       };
-      reader.readAsDataURL(file);
-    }
+      reader.res: imageFiles,
+      imagePreviews: imagePreviews
   };
 
   const handleSubmit = (e) => {
@@ -143,19 +151,27 @@ const ProductForm = forwardRef(({ onSubmit, initialProduct = null, isLoading = f
         </div>
 
         <div className="form-group">
-          <label htmlFor="image">Product Image *</label>
+          <label htmlFor="image">Product Images * (Multiple files supported)</label>
           <input
             id="image"
             type="file"
             name="image"
             onChange={handleImageChange}
             accept="image/*"
+            multiple
             required={!initialProduct}
           />
-          {imagePreview && (
-            <div className="image-preview">
-              <img src={imagePreview} alt="Preview" />
-              <p className="preview-label">Image Preview</p>
+          {imagePreviews.length > 0 && (
+            <div className="image-preview-gallery">
+              <p className="preview-label">Image Previews ({imagePreviews.length})</p>
+              <div className="preview-grid">
+                {imagePreviews.map((preview, index) => (
+                  <div key={index} className="preview-item">
+                    <img src={preview} alt={`Preview ${index + 1}`} />
+                    <span className="preview-number">{index + 1}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

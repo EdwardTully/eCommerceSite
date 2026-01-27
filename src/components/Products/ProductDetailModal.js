@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeProductModal } from '../../store/slices/uiSlice';
 import { addToCart } from '../../store/slices/cartSlice';
@@ -8,13 +8,25 @@ import './ProductDetailModal.css';
 const ProductDetailModal = () => {
   const dispatch = useDispatch();
   const { isProductModalOpen, selectedProduct } = useSelector((state) => state.ui);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
 
   if (!isProductModalOpen || !selectedProduct) {
     return null;
   }
 
+  // Get images array - support both new image_urls and legacy image field
+  const images = selectedProduct.image_urls && selectedProduct.image_urls.length > 0
+    ? selectedProduct.image_urls.map(img => `/images/${img}`)
+    : [selectedProduct.image];
+
+  const currentImage = images[currentImageIndex];
+
   const handleClose = () => {
     dispatch(closeProductModal());
+    setCurrentImageIndex(0);
+    setIsZoomed(false);
   };
 
   const handleAddToCart = () => {
@@ -32,6 +44,23 @@ const ProductDetailModal = () => {
     }
   };
 
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isZoomed) return;
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomPosition({ x, y });
+  };
+
   return (
     <div className="modal-backdrop" onClick={handleBackdropClick}>
       <div className="modal-content">
@@ -39,14 +68,70 @@ const ProductDetailModal = () => {
         
         <div className="modal-body">
           <div className="modal-image-section">
-            <img 
-              src={selectedProduct.image} 
-              alt={selectedProduct.title}
-              className="modal-image"
-              onError={(e) => {
-                e.target.style.display = 'none';
-              }}
-            />
+            <div 
+              className={`modal-image-container ${isZoomed ? 'zoomed' : ''}`}
+              onMouseMove={handleMouseMove}
+              style={isZoomed ? {
+                backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`
+              } : {}}
+            >
+              <img 
+                src={currentImage} 
+                alt={selectedProduct.title}
+                className="modal-image"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+
+            {/* Zoom Toggle Button */}
+            <button 
+              className="zoom-toggle-btn"
+              onClick={() => setIsZoomed(!isZoomed)}
+              title={isZoomed ? 'Normal View' : 'Zoom In'}
+            >
+              {isZoomed ? '🔍−' : '🔍+'}
+            </button>
+
+            {/* Image Navigation */}
+            {images.length > 1 && (
+              <div className="image-navigation">
+                <button 
+                  className="nav-btn prev-btn"
+                  onClick={handlePrevImage}
+                  title="Previous image"
+                >
+                  ‹
+                </button>
+                <div className="image-counter">
+                  {currentImageIndex + 1} / {images.length}
+                </div>
+                <button 
+                  className="nav-btn next-btn"
+                  onClick={handleNextImage}
+                  title="Next image"
+                >
+                  ›
+                </button>
+              </div>
+            )}
+
+            {/* Thumbnail Gallery */}
+            {images.length > 1 && (
+              <div className="thumbnail-gallery">
+                {images.map((img, index) => (
+                  <button
+                    key={index}
+                    className={`thumbnail ${index === currentImageIndex ? 'active' : ''}`}
+                    onClick={() => setCurrentImageIndex(index)}
+                    title={`Image ${index + 1}`}
+                  >
+                    <img src={img} alt={`Thumbnail ${index + 1}`} />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="modal-info-section">

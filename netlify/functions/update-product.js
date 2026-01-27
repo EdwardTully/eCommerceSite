@@ -29,7 +29,7 @@ export default async (req, context) => {
   }
 
   try {
-    const { title, description, price, category, image, sold } = data;
+    const { title, description, price, category, image, image_urls, sold, featured } = data;
     
     // Build the update object with only provided fields
     const updates = {};
@@ -38,7 +38,9 @@ export default async (req, context) => {
     if (price !== undefined) updates.price = parseFloat(price);
     if (category !== undefined) updates.category = category;
     if (image !== undefined) updates.image = image;
+    if (image_urls !== undefined) updates.image_urls = image_urls;
     if (sold !== undefined) updates.sold = sold;
+    if (featured !== undefined) updates.featured = featured;
 
     if (Object.keys(updates).length === 0) {
       return new Response(JSON.stringify({ error: "No fields to update" }), {
@@ -62,7 +64,9 @@ export default async (req, context) => {
           price = COALESCE(${updates.price || null}, price),
           category = COALESCE(${updates.category || null}, category),
           image = COALESCE(${updates.image || null}, image),
-          sold = COALESCE(${updates.sold !== undefined ? updates.sold : null}, sold)
+          image_urls = COALESCE(${updates.image_urls ? JSON.stringify(updates.image_urls) : null}, image_urls),
+          sold = COALESCE(${updates.sold !== undefined ? updates.sold : null}, sold),
+          featured = COALESCE(${updates.featured !== undefined ? updates.featured : null}, featured)
         WHERE id = ${id} 
         RETURNING *
       `;

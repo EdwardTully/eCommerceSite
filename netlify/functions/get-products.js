@@ -31,10 +31,10 @@ export default async (req, context) => {
       });
     }
 
-    const { title, description, price, category, image, featured } = data;
-    if (!title || !description || price === undefined || !category || !image) {
+    const { title, description, price, category, image, image_urls, featured } = data;
+    if (!title || !description || price === undefined || !category || (!image && (!image_urls || image_urls.length === 0))) {
       return new Response(
-        JSON.stringify({ error: "Missing required fields: title, description, price, category, image" }),
+        JSON.stringify({ error: "Missing required fields: title, description, price, category, image (or image_urls)" }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
@@ -43,9 +43,10 @@ export default async (req, context) => {
     }
 
     try {
+      const imageUrls = image_urls && image_urls.length > 0 ? image_urls : (image ? [image] : []);
       const result = await sql`
-        INSERT INTO products (title, description, price, category, image, sold, featured) 
-        VALUES (${title}, ${description}, ${parseFloat(price)}, ${category}, ${image}, false, ${featured || false}) 
+        INSERT INTO products (title, description, price, category, image, image_urls, sold, featured) 
+        VALUES (${title}, ${description}, ${parseFloat(price)}, ${category}, ${image || imageUrls[0]}, ${JSON.stringify(imageUrls)}, false, ${featured || false}) 
         RETURNING *
       `;
 
