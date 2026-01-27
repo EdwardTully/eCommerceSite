@@ -7,20 +7,11 @@ import './ShopPage.css';
 
 const ShopPage = () => {
   const dispatch = useDispatch();
-  const { loading, error, filteredItems, categories } = useSelector((state) => state.products);
+  const { loading, error, filteredItems } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-
-  // Group products by category
-  const groupedByCategory = () => {
-    const grouped = {};
-    categories.forEach((cat) => {
-      grouped[cat] = filteredItems.filter((p) => p.category === cat);
-    });
-    return grouped;
-  };
 
   if (error) {
     return (
@@ -34,7 +25,14 @@ const ShopPage = () => {
     );
   }
 
-  const grouped = groupedByCategory();
+  // Group products by category from filteredItems only
+  const groupedByCategory = {};
+  filteredItems.forEach((product) => {
+    if (!groupedByCategory[product.category]) {
+      groupedByCategory[product.category] = [];
+    }
+    groupedByCategory[product.category].push(product);
+  });
 
   return (
     <div className="shop-page">
@@ -56,14 +54,12 @@ const ShopPage = () => {
         </div>
       ) : (
         <div className="shop-container">
-          {Object.entries(grouped).map(([category, products]) => (
-            products.length > 0 && (
-              <CategorySection 
-                key={category} 
-                category={category} 
-                products={products}
-              />
-            )
+          {Object.entries(groupedByCategory).map(([category, products]) => (
+            <CategorySection 
+              key={category} 
+              category={category} 
+              products={products}
+            />
           ))}
         </div>
       )}
