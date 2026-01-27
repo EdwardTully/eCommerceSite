@@ -72,16 +72,16 @@ const ProductForm = forwardRef(({ onSubmit, initialProduct = null, isLoading = f
           setImagePreviews(previews);
         }
       };
-      reader.res: imageFiles,
-      imagePreviews: imagePreviews
+      reader.readAsDataURL(file);
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({
       ...formData,
-      imageFile: imageFile,
-      imagePreview: imagePreview,
+      imageFiles: imageFiles,
+      imagePreviews: imagePreviews,
     });
   };
 
