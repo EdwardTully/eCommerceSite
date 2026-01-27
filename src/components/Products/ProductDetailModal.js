@@ -18,7 +18,10 @@ const ProductDetailModal = () => {
 
   // Get images array - support both new image_urls and legacy image field
   const images = selectedProduct.image_urls && selectedProduct.image_urls.length > 0
-    ? selectedProduct.image_urls.map(img => `/images/${img}`)
+    ? selectedProduct.image_urls.map(img => {
+        // If img already has /images/ prefix, use as-is, otherwise add it
+        return img.startsWith('/images/') ? img : `/images/${img}`;
+      })
     : [selectedProduct.image];
 
   const currentImage = images[currentImageIndex];
