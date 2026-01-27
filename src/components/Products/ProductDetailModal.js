@@ -61,6 +61,11 @@ const ProductDetailModal = () => {
     setZoomPosition({ x, y });
   };
 
+  const handleDragStart = (e) => {
+    e.preventDefault();
+    return false;
+  };
+
   return (
     <div className="modal-backdrop" onClick={handleBackdropClick}>
       <div className="modal-content">
@@ -79,6 +84,8 @@ const ProductDetailModal = () => {
                 src={currentImage} 
                 alt={selectedProduct.title}
                 className="modal-image"
+                draggable={false}
+                onDragStart={handleDragStart}
                 onError={(e) => {
                   e.target.style.display = 'none';
                 }}

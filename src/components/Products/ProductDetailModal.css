@@ -91,6 +91,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
 }
 
 .modal-image-container.zoomed {
@@ -103,6 +104,11 @@
   object-fit: contain;
   border-radius: 8px;
   transition: transform 0.2s ease-out;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 .modal-image-container.zoomed .modal-image {
