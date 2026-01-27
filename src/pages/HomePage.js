@@ -5,6 +5,21 @@ import { fetchProducts, fetchFeaturedProducts } from '../store/slices/productsSl
 import ProductCard from '../components/Products/ProductCard';
 import './HomePage.css';
 
+const CATEGORIES_WITH_ICONS = [
+  { name: 'Furniture', icon: '🪑', slug: 'Furniture' },
+  { name: 'Decorative Objects', icon: '🎨', slug: 'Decorative Objects' },
+  { name: 'Collectibles', icon: '🏆', slug: 'Collectibles' },
+  { name: 'Art & Prints', icon: '🖼️', slug: 'Art & Prints' },
+  { name: 'Glassware', icon: '🥃', slug: 'Glassware' },
+  { name: 'Books & Documents', icon: '📚', slug: 'Books & Documents' },
+  { name: 'Tools & Hardware', icon: '🔧', slug: 'Tools & Hardware' },
+  { name: 'Military Memorabilia', icon: '⚔️', slug: 'Military Memorabilia' },
+  { name: 'Scientific Instruments', icon: '🔬', slug: 'Scientific Instruments' },
+  { name: 'Vintage Electronics', icon: '📺', slug: 'Vintage Electronics' },
+  { name: 'Advertising', icon: '📢', slug: 'Advertising' },
+  { name: 'Oddities', icon: '🎭', slug: 'Oddities' },
+];
+
 const HomePage = () => {
   const dispatch = useDispatch();
   const { featured, loading } = useSelector((state) => state.products);
@@ -40,22 +55,16 @@ const HomePage = () => {
       <section className="categories-preview">
         <h2>Shop by Category</h2>
         <div className="categories-grid">
-          <Link to="/shop?category=electronics" className="category-card">
-            <span className="category-icon">📺</span>
-            <h3>Electronics</h3>
-          </Link>
-          <Link to="/shop?category=furniture" className="category-card">
-            <span className="category-icon">🪑</span>
-            <h3>Furniture</h3>
-          </Link>
-          <Link to="/shop?category=books" className="category-card">
-            <span className="category-icon">📚</span>
-            <h3>Books</h3>
-          </Link>
-          <Link to="/shop?category=fitness" className="category-card">
-            <span className="category-icon">💪</span>
-            <h3>Fitness</h3>
-          </Link>
+          {CATEGORIES_WITH_ICONS.map((category) => (
+            <Link 
+              key={category.slug}
+              to={`/shop?category=${encodeURIComponent(category.slug)}`} 
+              className="category-card"
+            >
+              <span className="category-icon">{category.icon}</span>
+              <h3>{category.name}</h3>
+            </Link>
+          ))}
         </div>
       </section>
     </div>

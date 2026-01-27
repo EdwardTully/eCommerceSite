@@ -12,7 +12,8 @@ const CATEGORIES = [
   'Military Memorabilia',
   'Scientific Instruments',
   'Vintage Electronics',
-  'Advertising'
+  'Advertising',
+  'Oddities'
 ];
 
 const ProductForm = forwardRef(({ onSubmit, initialProduct = null, isLoading = false }, ref) => {
