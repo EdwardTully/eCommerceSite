@@ -31,7 +31,7 @@ export default async (req, context) => {
       });
     }
 
-    const { title, description, price, category, image } = data;
+    const { title, description, price, category, image, featured } = data;
     if (!title || !description || price === undefined || !category || !image) {
       return new Response(
         JSON.stringify({ error: "Missing required fields: title, description, price, category, image" }),
@@ -44,8 +44,8 @@ export default async (req, context) => {
 
     try {
       const result = await sql`
-        INSERT INTO products (title, description, price, category, image, sold) 
-        VALUES (${title}, ${description}, ${parseFloat(price)}, ${category}, ${image}, false) 
+        INSERT INTO products (title, description, price, category, image, sold, featured) 
+        VALUES (${title}, ${description}, ${parseFloat(price)}, ${category}, ${image}, false, ${featured || false}) 
         RETURNING *
       `;
 

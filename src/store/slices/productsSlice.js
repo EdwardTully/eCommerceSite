@@ -19,8 +19,13 @@ export const fetchProducts = createAsyncThunk(
 export const fetchFeaturedProducts = createAsyncThunk(
   'products/fetchFeatured',
   async () => {
-    // For now, fallback to empty array or implement endpoint
-    return [];
+    try {
+      const response = await axios.get(`${API_URL}/featured`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching featured products:', error);
+      return [];
+    }
   }
 );
 

@@ -24,6 +24,7 @@ const ProductForm = forwardRef(({ onSubmit, initialProduct = null, isLoading = f
       category: 'Furniture',
       image: '',
       sold: false,
+      featured: false,
     }
   );
   const [imageFile, setImageFile] = useState(null);
@@ -38,6 +39,7 @@ const ProductForm = forwardRef(({ onSubmit, initialProduct = null, isLoading = f
         category: 'Furniture',
         image: '',
         sold: false,
+        featured: false,
       });
       setImageFile(null);
       setImagePreview('');
@@ -166,6 +168,17 @@ const ProductForm = forwardRef(({ onSubmit, initialProduct = null, isLoading = f
             onChange={handleChange}
           />
           <label htmlFor="sold">Mark as Sold</label>
+        </div>
+
+        <div className="form-group checkbox">
+          <input
+            id="featured"
+            type="checkbox"
+            name="featured"
+            checked={formData.featured}
+            onChange={handleChange}
+          />
+          <label htmlFor="featured">Feature on Homepage</label>
         </div>
 
         <button type="submit" className="submit-btn" disabled={isLoading}>
