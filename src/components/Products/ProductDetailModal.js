@@ -44,7 +44,7 @@ const ProductDetailModal = () => {
               alt={selectedProduct.title}
               className="modal-image"
               onError={(e) => {
-                e.target.src = 'https://via.placeholder.com/500x500?text=Image+Not+Available';
+                e.target.style.display = 'none';
               }}
             />
           </div>
