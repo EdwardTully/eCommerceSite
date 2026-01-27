@@ -72,7 +72,7 @@ const ProductDetailModal = () => {
               className={`modal-image-container ${isZoomed ? 'zoomed' : ''}`}
               onMouseMove={handleMouseMove}
               style={isZoomed ? {
-                backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`
+                transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
               } : {}}
             >
               <img 
