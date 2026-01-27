@@ -79,9 +79,6 @@ const ProductDetailModal = () => {
             <div 
               className={`modal-image-container ${isZoomed ? 'zoomed' : ''}`}
               onMouseMove={handleMouseMove}
-              style={isZoomed ? {
-                transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
-              } : {}}
             >
               <img 
                 src={currentImage} 
@@ -89,6 +86,10 @@ const ProductDetailModal = () => {
                 className="modal-image"
                 draggable={false}
                 onDragStart={handleDragStart}
+                style={isZoomed ? {
+                  transform: 'scale(2)',
+                  transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
+                } : {}}
                 onError={(e) => {
                   e.target.style.display = 'none';
                 }}
