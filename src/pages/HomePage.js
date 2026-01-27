@@ -33,8 +33,8 @@ const HomePage = () => {
     <div className="home-page">
       <section className="hero">
         <div className="hero-content">
-          <h1>Discover Unique Treasures</h1>
-          <p>Your premier destination for antiques, collectibles, and vintage finds</p>
+          <h1>Classic, Timeless and Junk Free</h1>
+          <p>ReLoop is the destination for the discerning enthusiast  </p>
           <Link to="/shop" className="cta-button">Browse Collection</Link>
         </div>
       </section>
